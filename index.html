@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Namma Chennai AI – The Local Guide</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Noto+Serif+Tamil:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --maroon:#4b0f1f;
+  --gold:#d4af37;
+  --teal:#0b4f4a;
+  --cream:#fff6e5;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+  font-family:'Poppins',sans-serif;
+  background:
+    radial-gradient(circle at top, rgba(212,175,55,.15), transparent 60%),
+    linear-gradient(135deg,#14080a,#2c0d15);
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+  color:var(--cream);
+}
+
+/* Container */
+.app{
+  width:100%;
+  max-width:1200px;
+  height:88vh;
+  display:grid;
+  grid-template-columns:320px 1fr;
+  background:rgba(20,8,10,.9);
+  border-radius:22px;
+  overflow:hidden;
+  box-shadow:0 30px 80px rgba(0,0,0,.7);
+  border:1px solid rgba(212,175,55,.35);
+}
+
+/* Sidebar */
+.sidebar{
+  background:
+    linear-gradient(180deg,rgba(75,15,31,.95),rgba(20,8,10,.95)),
+    url("https://www.transparenttextures.com/patterns/arabesque.png");
+  padding:28px;
+  border-right:1px solid rgba(212,175,55,.3);
+}
+
+.sidebar h2{
+  font-family:'Noto Serif Tamil',serif;
+  color:var(--gold);
+  font-size:26px;
+  margin-bottom:10px;
+}
+
+.sidebar p{
+  opacity:.85;
+  font-size:14px;
+  margin-bottom:22px;
+}
+
+.menu button{
+  width:100%;
+  padding:14px 16px;
+  margin-bottom:14px;
+  background:linear-gradient(135deg,rgba(212,175,55,.15),rgba(11,79,74,.25));
+  border:1px solid rgba(212,175,55,.4);
+  color:var(--cream);
+  border-radius:14px;
+  cursor:pointer;
+  text-align:left;
+  font-size:15px;
+  transition:.3s;
+}
+
+.menu button:hover{
+  transform:translateX(6px);
+  box-shadow:0 0 18px rgba(212,175,55,.35);
+}
+
+/* Chat */
+.chat{
+  display:flex;
+  flex-direction:column;
+  height:100%;
+}
+
+.chat-header{
+  background:
+    linear-gradient(90deg,#4b0f1f,#0b4f4a);
+  padding:22px;
+  font-size:22px;
+  font-weight:600;
+  border-bottom:1px solid rgba(212,175,55,.35);
+}
+
+.chat-body{
+  flex:1;
+  padding:26px;
+  overflow-y:auto;
+  background:
+    radial-gradient(circle at bottom right,rgba(212,175,55,.12),transparent 60%);
+}
+
+.msg{
+  max-width:72%;
+  padding:16px 18px;
+  margin-bottom:18px;
+  border-radius:18px;
+  line-height:1.6;
+  white-space:pre-wrap;
+  position:relative;
+}
+
+.user{
+  background:linear-gradient(135deg,#d4af37,#b8962e);
+  color:#2c0d15;
+  margin-left:auto;
+  border-bottom-right-radius:6px;
+}
+
+.bot{
+  background:rgba(255,246,229,.08);
+  border:1px solid rgba(212,175,55,.35);
+  color:var(--cream);
+  border-bottom-left-radius:6px;
+}
+
+/* Input */
+.chat-input{
+  display:flex;
+  gap:12px;
+  padding:22px;
+  background:rgba(20,8,10,.95);
+  border-top:1px solid rgba(212,175,55,.35);
+}
+
+.chat-input input{
+  flex:1;
+  padding:16px;
+  border-radius:16px;
+  border:1px solid rgba(212,175,55,.4);
+  background:rgba(0,0,0,.35);
+  color:var(--cream);
+  font-size:16px;
+}
+
+.chat-input button{
+  padding:16px 26px;
+  border-radius:16px;
+  border:none;
+  background:linear-gradient(135deg,#d4af37,#0b4f4a);
+  color:#2c0d15;
+  font-weight:600;
+  cursor:pointer;
+  box-shadow:0 0 20px rgba(212,175,55,.4);
+}
+
+/* Mobile */
+@media(max-width:900px){
+  .app{grid-template-columns:1fr;}
+  .sidebar{display:none;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h2>நம்ம சென்னை</h2>
+    <p>AI that understands Chennai slang, food, traffic & culture</p>
+    <div class="menu">
+      <button onclick="quick('semma machan')">🗣️ Tamil Slang</button>
+      <button onclick="quick('street food marina')">🍛 Street Food</button>
+      <button onclick="quick('OMR traffic')">🚦 Traffic Intel</button>
+      <button onclick="quick('monsoon season')">🏛️ Culture & Weather</button>
+    </div>
+  </div>
+
+  <!-- Chat -->
+  <div class="chat">
+    <div class="chat-header">🛕 Namma Chennai AI – The Local Guide</div>
+
+    <div id="chat" class="chat-body">
+      <div class="msg bot">
+        Vanakkam 🙏  
+        I speak Chennai slang, know the food streets, traffic moods,
+        and the rhythm of this city.
+      </div>
+    </div>
+
+    <div class="chat-input">
+      <input id="input" placeholder="Ask anything about Chennai…" />
+      <button onclick="send()">Ask</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function add(text,type){
+  const c=document.getElementById("chat");
+  const d=document.createElement("div");
+  d.className="msg "+type;
+  d.textContent=text;
+  c.appendChild(d);
+  c.scrollTop=c.scrollHeight;
+}
+
+function send(){
+  const i=document.getElementById("input");
+  if(!i.value.trim())return;
+  add(i.value,"user");
+  const reply = processQuery(i.value); // reuse your logic
+  i.value="";
+  add(reply,"bot");
+}
+
+function quick(t){
+  document.getElementById("input").value=t;
+  send();
+}
+</script>
+
+</body>
+</html>
