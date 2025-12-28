@@ -34,8 +34,7 @@ Simply open `index.html` in your browser for an interactive web experience.
 ## 📁 Project Structure
 
 ```
-├── .kiro/                  # Kiro configuration and steering
-│   └── steering/
+├── .kiro/                  # Kiro configuration
 │       └── project-context.md
 ├── product.md              # Complete local knowledge base
 ├── local_guide.py          # Interactive CLI tool
